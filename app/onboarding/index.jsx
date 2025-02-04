@@ -41,7 +41,7 @@ const Login = () => {
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push('/onboarding/tabs')}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 

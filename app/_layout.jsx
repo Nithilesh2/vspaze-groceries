@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router';
 
@@ -8,8 +7,7 @@ const _layout = () => {
       headerShown: false,
     }}>
       <Stack.Screen name='index' />
-      <Stack.Screen name='onboarding/login' />
-      <Stack.Screen name='onboarding/register' />
+      <Stack.Screen name='onboarding' />
     </Stack>
   )
 }

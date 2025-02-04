@@ -8,9 +8,6 @@ const index = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-      
-      {/* Main Content */}
       <View style={styles.content}>
         <Image 
           source={require('../assets/images/adaptive-icon.png')}
@@ -22,7 +19,7 @@ const index = () => {
           <Text style={styles.title}>Keep Smiling and meet your needs with quick Loans</Text>
           
           {/* Dots Indicator */}
-          
+
           <View style={styles.dotsContainer}>
             {[0, 1, 2].map((dot, index) => (
               <View 
@@ -38,7 +35,7 @@ const index = () => {
           {/* Next Button */}
           <TouchableOpacity 
             style={styles.button}
-            onPress={() => router.push('/onboarding/login')}
+            onPress={() => router.push('/onboarding/')}
           >
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
