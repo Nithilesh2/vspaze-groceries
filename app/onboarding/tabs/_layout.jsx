@@ -2,8 +2,8 @@ import React from "react"
 import { Tabs } from "expo-router"
 import HomeIcon from "../../../assets/icons/Home"
 import ShoppingCartIcon from "../../../assets/icons/Cart"
-import CategoryIcon from "../../../assets/icons/Category"
 import ProfileIcon from "./../../../assets/icons/Profile"
+import FavouriteIcon from './../../../assets/icons/Favourite';
 
 const _layout = () => {
   return (
@@ -18,7 +18,7 @@ const _layout = () => {
           fontSize: 13,
           marginTop: 2,
         },
-        tabBarActiveTintColor: 'green', // Set active color for icon and label
+        tabBarActiveTintColor: "green",
       }}
     >
       <Tabs.Screen
@@ -34,9 +34,9 @@ const _layout = () => {
       <Tabs.Screen
         name="category"
         options={{
-          title: "Categories",
+          title: "Favourite",
           tabBarIcon: ({ color, size }) => (
-            <CategoryIcon width={28} height={28} color={color} />
+            <FavouriteIcon width={28} height={28} color={color} />
           ),
         }}
       />
@@ -61,6 +61,11 @@ const _layout = () => {
           tabBarIcon: ({ color, size }) => (
             <ProfileIcon height={28} width={28} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen name="categoryTabs" 
+        options={{
+          href: null
         }}
       />
     </Tabs>

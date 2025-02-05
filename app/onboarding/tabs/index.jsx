@@ -10,42 +10,86 @@ import {
   Alert,
   ScrollView,
 } from "react-native"
-import React from "react"
-import Carousel from "react-native-reanimated-carousel"
+import React, { useState } from "react"
 import SearchBar from "../../../components/SearchBar"
+import Slider from "../../../components/Slider"
+import GroceriesSingleRow from "../../../components/groceriesTypes/GroceriesSingleRow"
+import { useRouter } from "expo-router"
+import Carousel from "react-native-reanimated-carousel"
 
 const { width } = Dimensions.get("window")
 
-const images = [
-  { id: 1, src: require("../../../assets/images/one.jpg") },
-  { id: 2, src: require("../../../assets/images/two.jpeg") },
-  { id: 3, src: require("../../../assets/images/three.jpeg") },
-]
-
 const Index = () => {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const router = useRouter()
+
   const addToCart = (itemName) => {
     Alert.alert("Success", `${itemName} added to cart!`)
   }
+
+  const renderItem = ({ item }) => (
+    <View style={styles.carouselItem}>
+      <Image source={item.src} style={styles.carouselImage} />
+    </View>
+  )
+
+  const images = [
+    { id: 1, src: require("../../../assets/images/one.jpg") },
+    { id: 2, src: require("../../../assets/images/two.jpg") },
+    { id: 3, src: require("../../../assets/images/three.jpeg") },
+    { id: 4, src: require("../../../assets/images/one.jpg") },
+    { id: 5, src: require("../../../assets/images/two.jpg") },
+    { id: 6, src: require("../../../assets/images/three.jpeg") },
+  ]
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="green" />
       <ScrollView style={styles.bottom}>
         <SearchBar />
-        <View style={styles.containerView}>
+        <View style={styles.carouselContainer}>
           <Carousel
             loop
             width={width}
-            height={200}
+            height={250}
             autoPlay={true}
+            autoPlayInterval={3000}
             data={images}
             scrollAnimationDuration={1000}
+            onSnapToItem={(index) => setActiveIndex(index)}
             renderItem={({ item }) => (
               <View style={styles.slide}>
                 <Image source={item.src} style={styles.image} />
               </View>
             )}
           />
+
+          <View style={styles.pagination}>
+            {images.map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.dot,
+                  activeIndex === index ? styles.activeDot : null,
+                ]}
+              />
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.groceriesCard}>
+          <Text style={styles.groceriesTitle}>Categories</Text>
+          <View style={styles.groceriesContainer}>
+            <View style={styles.seeAllContainer}>
+              <TouchableOpacity
+                onPress={() => router.push("/onboarding/tabs/categoryTabs")}
+              >
+                <Text style={styles.seeMore}>See All</Text>
+              </TouchableOpacity>
+            </View>
+            <GroceriesSingleRow />
+            <GroceriesSingleRow />
+          </View>
         </View>
         <View style={styles.middle}>
           <Text style={styles.title}>Get healthy food for good health</Text>
@@ -102,26 +146,15 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight - 50 || 20,
   },
   containerView: {
-    height: 230,
     width: "100%",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-    paddingHorizontal: 20,
+    flex: 1,
+    alignItems: "center",
   },
   slide: {
-    borderRadius: 10,
-    overflow: "hidden",
-    width: "100%",
-  },
-  image: {
-    width: "90%",
-    height: 200,
-    borderRadius: 10,
-    objectFit: "cover",
-    alignSelf: "center",
+    width: width,
+    height: 250,
+    justifyContent: "center",
+    alignItems: "center",
   },
   middle: {
     width: "100%",
@@ -188,5 +221,60 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  groceriesCard: {
+    borderRadius: 10,
+    overflow: "hidden",
+    width: width,
+    marginTop: 40,
+    marginBottom: 20,
+  },
+  groceriesTitle: {
+    fontSize: 28,
+    fontWeight: "bold",
+    paddingBottom: 10,
+    textTransform: "uppercase",
+    color: "gold",
+    textAlign: "center",
+  },
+  groceriesContainer: {
+    width: width,
+  },
+  seeMore: {
+    color: "gold",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "right",
+    textDecorationLine: "underline",
+    marginHorizontal: 16,
+    width: 100,
+  },
+  seeAllContainer: {
+    alignItems: "flex-end",
+    paddingRight: 16,
+  },
+  image: {
+    width: 300,
+    height: 250,
+    resizeMode: "cover",
+    alignSelf: "center",
+  },
+  pagination: {
+    flexDirection: "row",
+    marginTop: 10,
+    alignSelf: "center",
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 15,
+    backgroundColor: "#ccc",
+    marginHorizontal: 5,
+  },
+  activeDot: {
+    backgroundColor: "#333",
+    width: 12,
+    height: 12,
+    borderRadius: 15,
   },
 })

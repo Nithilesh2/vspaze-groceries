@@ -1,24 +1,27 @@
 import React, { useState } from "react"
-import { StyleSheet, View } from "react-native"
-import { Searchbar } from "react-native-paper"
-import ShoppingCartIcon from "./../assets/icons/Cart"
+import { StyleSheet, View, TextInput } from "react-native"
+import Notification03Icon from "./../assets/icons/Bell"
+import SearchIcon from "../assets/icons/Search"
 
 const CustomSearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("")
 
   return (
     <View style={styles.container}>
-      <Searchbar
-        placeholder="Search..."
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-        style={styles.searchBar}
-      />
-      <ShoppingCartIcon
-        height="32"
-        width="32"
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search your needs..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          placeholderTextColor="black"
+        />
+        <SearchIcon height={24} width={24} color="black" style={styles.searchIcon}/>
+      </View>
+      <Notification03Icon
+        height={30}
+        width={30}
         color="white"
-        strokeWidth="1.4"
         style={styles.icon}
       />
     </View>
@@ -35,12 +38,37 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "85%",
+    height: 45,
+    borderRadius: 40,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 2,
+  },
   searchBar: {
     borderRadius: 40,
-    backgroundColor: "#f0f0f0",
     width: "85%",
+    height: 40,
+    paddingLeft: 15,
+    paddingRight: 40,
+    fontSize: 17,
   },
   icon: {
-    paddingHorizontal: 30,
+    position: "absolute",
+    right: 30,
+    zIndex: 1,
   },
+  searchIcon: {
+    position: "absolute",
+    right: 15,
+    zIndex: 1,
+    tintColor: "black",
+  }
 })
