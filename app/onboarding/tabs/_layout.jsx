@@ -68,6 +68,12 @@ const _layout = () => {
           href: null
         }}
       />
+      <Tabs.Screen name="groceryItem"
+        options={{
+          title: 'Grocery',
+          href: null
+        }}
+      />
     </Tabs>
   )
 }

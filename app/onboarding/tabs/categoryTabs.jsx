@@ -10,13 +10,12 @@ import React from "react"
 import LeftArrowIcon from "./../../../assets/icons/LeftArrow"
 import { useRouter } from "expo-router"
 import { Dimensions } from "react-native"
+import { TouchableOpacity } from "react-native"
 
 const { width } = Dimensions.get("window")
 
 const categoryTabs = () => {
-  
-  const data = 
-  [
+  const data = [
     {
       id: 1,
       icon: require("../../../assets/images/data-1-1.jpg"),
@@ -95,9 +94,14 @@ const categoryTabs = () => {
         </View>
         <View style={styles.categoryContainer}>
           {data.map((item) => (
-            <View key={item.id} style={styles.boxContainer}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              key={item.id}
+              style={styles.boxContainer}
+              onPress={() => router.push("/onboarding/tabs/groceryItem")}
+            >
               <Image source={item.icon} style={styles.image} />
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>

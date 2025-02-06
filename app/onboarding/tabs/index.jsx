@@ -47,7 +47,7 @@ const Index = () => {
       <StatusBar barStyle="light-content" backgroundColor="green" />
       <ScrollView style={styles.bottom}>
         <SearchBar />
-        <View style={styles.carouselContainer}>
+        {/* <View style={styles.carouselContainer}>
           <Carousel
             loop
             width={width}
@@ -55,7 +55,7 @@ const Index = () => {
             autoPlay={true}
             autoPlayInterval={3000}
             data={images}
-            scrollAnimationDuration={1000}
+            // scrollAnimationDuration={1000}
             onSnapToItem={(index) => setActiveIndex(index)}
             renderItem={({ item }) => (
               <View style={styles.slide}>
@@ -75,7 +75,8 @@ const Index = () => {
               />
             ))}
           </View>
-        </View>
+        </View> */}
+        <Slider />
 
         <View style={styles.groceriesCard}>
           <Text style={styles.groceriesTitle}>Categories</Text>
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     width: width,
-    marginTop: 40,
+    marginTop: 30,
     marginBottom: 20,
   },
   groceriesTitle: {
@@ -255,9 +256,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 300,
-    height: 250,
+    height: 220,
     resizeMode: "cover",
     alignSelf: "center",
+    borderRadius: 20
   },
   pagination: {
     flexDirection: "row",
@@ -272,7 +274,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: "#333",
+    backgroundColor: "gold",
     width: 12,
     height: 12,
     borderRadius: 15,

@@ -1,15 +1,21 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, StyleSheet, TouchableOpacity } from "react-native"
+import React from "react"
+import { useRouter } from "expo-router"
 
 const GroceriesCard = ({ image }) => {
+  const router = useRouter()
   return (
-    <View style={styles.cardContainer}>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      activeOpacity={0.9}
+      onPress={() => router.push("/onboarding/tabs/groceryItem")}
+    >
       <Image source={image} style={styles.image} />
-    </View>
-  );
-};
+    </TouchableOpacity>
+  )
+}
 
-export default GroceriesCard;
+export default GroceriesCard
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -29,4 +35,4 @@ const styles = StyleSheet.create({
     height: 80,
     resizeMode: "contain",
   },
-});
+})
