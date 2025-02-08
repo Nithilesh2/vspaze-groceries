@@ -1,14 +1,19 @@
-import React from 'react'
-import { Stack } from 'expo-router';
+import React from "react"
+import { Stack } from "expo-router"
+import AppStore from "../context/AppStore"
 
 const _layout = () => {
   return (
-    <Stack screenOptions={{
-      headerShown: false,
-    }}>
-      <Stack.Screen name='index' />
-      <Stack.Screen name='onboarding' />
-    </Stack>
+    <AppStore>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="onboarding" />
+      </Stack>
+    </AppStore>
   )
 }
 

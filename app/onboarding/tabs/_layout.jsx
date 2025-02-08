@@ -3,7 +3,8 @@ import { Tabs } from "expo-router"
 import HomeIcon from "../../../assets/icons/Home"
 import ShoppingCartIcon from "../../../assets/icons/Cart"
 import ProfileIcon from "./../../../assets/icons/Profile"
-import FavouriteIcon from './../../../assets/icons/Favourite';
+import FavouriteIcon from "./../../../assets/icons/Favourite"
+import OrdersIcon from "./../../../assets/icons/Orders"
 
 const _layout = () => {
   return (
@@ -36,7 +37,7 @@ const _layout = () => {
         options={{
           title: "Favourite",
           tabBarIcon: ({ color, size }) => (
-            <FavouriteIcon width={28} height={28} color={color} />
+            <FavouriteIcon width={28} height={28} color={color} fill="none" />
           ),
         }}
       />
@@ -55,6 +56,20 @@ const _layout = () => {
         }}
       />
       <Tabs.Screen
+        name="orders"
+        options={{
+          title: "Orders",
+          tabBarIcon: ({ color, size }) => (
+            <OrdersIcon
+              width={28}
+              height={28}
+              color={color}
+              strokeWidth={1.4}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",
@@ -63,15 +78,17 @@ const _layout = () => {
           ),
         }}
       />
-      <Tabs.Screen name="categoryTabs" 
+      <Tabs.Screen
+        name="categoryTabs"
         options={{
-          href: null
+          href: null,
         }}
       />
-      <Tabs.Screen name="groceryItem"
+      <Tabs.Screen
+        name="groceryItem"
         options={{
-          title: 'Grocery',
-          href: null
+          title: "Grocery",
+          href: null,
         }}
       />
     </Tabs>

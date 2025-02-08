@@ -10,73 +10,26 @@ import {
   Alert,
   ScrollView,
 } from "react-native"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import SearchBar from "../../../components/SearchBar"
 import Slider from "../../../components/Slider"
 import GroceriesSingleRow from "../../../components/groceriesTypes/GroceriesSingleRow"
 import { useRouter } from "expo-router"
-import Carousel from "react-native-reanimated-carousel"
-
+import SpecialOffersCard from "../../../components/specialOffers/SpecialOffersCard"
+import { AppContext } from "../../../context/AppContext"
 const { width } = Dimensions.get("window")
 
 const Index = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
   const router = useRouter()
-
-  const addToCart = (itemName) => {
-    Alert.alert("Success", `${itemName} added to cart!`)
-  }
-
-  const renderItem = ({ item }) => (
-    <View style={styles.carouselItem}>
-      <Image source={item.src} style={styles.carouselImage} />
-    </View>
-  )
-
-  const images = [
-    { id: 1, src: require("../../../assets/images/one.jpg") },
-    { id: 2, src: require("../../../assets/images/two.jpg") },
-    { id: 3, src: require("../../../assets/images/three.jpeg") },
-    { id: 4, src: require("../../../assets/images/one.jpg") },
-    { id: 5, src: require("../../../assets/images/two.jpg") },
-    { id: 6, src: require("../../../assets/images/three.jpeg") },
-  ]
-
+  const { like, setLike } = useContext(AppContext)
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="green" />
       <ScrollView style={styles.bottom}>
         <SearchBar />
-        {/* <View style={styles.carouselContainer}>
-          <Carousel
-            loop
-            width={width}
-            height={250}
-            autoPlay={true}
-            autoPlayInterval={3000}
-            data={images}
-            // scrollAnimationDuration={1000}
-            onSnapToItem={(index) => setActiveIndex(index)}
-            renderItem={({ item }) => (
-              <View style={styles.slide}>
-                <Image source={item.src} style={styles.image} />
-              </View>
-            )}
-          />
-
-          <View style={styles.pagination}>
-            {images.map((_, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.dot,
-                  activeIndex === index ? styles.activeDot : null,
-                ]}
-              />
-            ))}
-          </View>
-        </View> */}
-        <Slider />
+        <View style={styles.sliderContainer}>
+          <Slider />
+        </View>
 
         <View style={styles.groceriesCard}>
           <Text style={styles.groceriesTitle}>Categories</Text>
@@ -93,45 +46,37 @@ const Index = () => {
           </View>
         </View>
         <View style={styles.middle}>
-          <Text style={styles.title}>Get healthy food for good health</Text>
+          <Text style={styles.title}>Special Offers</Text>
+          <Image
+            source={require("../../../assets/images/discount.png")}
+            style={styles.discountImg}
+          />
+        </View>
+        <View style={styles.middleOffers}>
+          <Text style={[styles.seeMore, { paddingRight: 15 }]}>See All</Text>
         </View>
 
-        <View style={styles.cardsContainer}>
-          <View style={styles.card}>
-            <Image
-              source={require("../../../assets/images/water.jpeg")}
-              style={styles.cardImage}
-            />
-            <Text style={styles.cardTitle}>Water</Text>
-            <Text style={styles.cardDescription}>
-              Fresh and pure drinking water for hydration.
-            </Text>
-            <Text style={styles.cardAmount}>₹30</Text>
-            <TouchableOpacity
-              style={styles.addToCartButton}
-              onPress={() => addToCart("Water")}
-            >
-              <Text style={styles.addToCartText}>Add to Cart</Text>
-            </TouchableOpacity>
-          </View>
+        <ScrollView
+          horizontal
+          pagingEnabled={true}
+          style={styles.cardsContainer}
+          snapToInterval={width / 2}
+          decelerationRate="normal"
+        >
+          {[...Array(6)].map((_, index) => (
+            <SpecialOffersCard key={index} itemId={index} /> 
+          ))}
+        </ScrollView>
 
-          <View style={styles.card}>
-            <Image
-              source={require("../../../assets/images/milk.png")}
-              style={styles.cardImage}
-            />
-            <Text style={styles.cardTitle}>Milk</Text>
-            <Text style={styles.cardDescription}>
-              Fresh milk from healthy cows, rich in nutrients.
-            </Text>
-            <Text style={styles.cardAmount}>₹45</Text>
-            <TouchableOpacity
-              style={styles.addToCartButton}
-              onPress={() => addToCart("Milk")}
-            >
-              <Text style={styles.addToCartText}>Add to Cart</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.whatsAppAndDeliveredContainer}>
+          <Image
+            source={require("../../../assets/images/whatsapp.png")}
+            style={styles.whatsAppImage}
+          />
+        </View>
+
+        <View style={styles.whatsAppAndDeliveredContainer}>
+          <Text style={styles.deliveredText}>Delivered in Next Day</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -151,31 +96,41 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  slide: {
-    width: width,
-    height: 250,
-    justifyContent: "center",
-    alignItems: "center",
+  sliderContainer: {
+    width: "100%",
+    marginBottom: 20,
+    height: 210,
   },
   middle: {
     width: "100%",
-    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  middleOffers: {
+    width: "100%",
+    alignItems: "flex-end",
   },
   title: {
     fontSize: 24,
-    paddingHorizontal: 30,
+    paddingRight: 20,
     textTransform: "uppercase",
     textAlign: "center",
     color: "gold",
+    fontWeight: "bold",
+  },
+  discountImg: {
+    width: 20,
+    height: 20,
+    position: "absolute",
+    right: 75,
   },
   bottom: {
     marginTop: 20,
   },
   cardsContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    paddingHorizontal: 20,
-    marginVertical: 20,
+    width: "100%",
   },
   card: {
     backgroundColor: "#fff",
@@ -247,7 +202,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "right",
     textDecorationLine: "underline",
-    marginHorizontal: 16,
     width: 100,
   },
   seeAllContainer: {
@@ -259,24 +213,31 @@ const styles = StyleSheet.create({
     height: 220,
     resizeMode: "cover",
     alignSelf: "center",
-    borderRadius: 20
+    borderRadius: 20,
   },
-  pagination: {
-    flexDirection: "row",
-    marginTop: 10,
-    alignSelf: "center",
+  whatsAppAndDeliveredContainer: {
+    width: width,
+    alignItems: "center",
   },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 15,
-    backgroundColor: "#ccc",
-    marginHorizontal: 5,
+  whatsAppImage: {
+    width: "95%",
+    height: 160,
+    borderRadius: 10,
+    objectFit: "contain",
+    backgroundColor: "lightgrey",
+    marginVertical: 10,
   },
-  activeDot: {
-    backgroundColor: "gold",
-    width: 12,
-    height: 12,
-    borderRadius: 15,
+  deliveredText: {
+    width: "95%",
+    height: 50,
+    resizeMode: "contain",
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    marginBottom: 10,
+    textAlign: "center",
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 16,
+    paddingVertical: 15,
   },
 })

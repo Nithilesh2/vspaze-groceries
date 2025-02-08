@@ -8,7 +8,7 @@ const FavouriteIcon = (props) => (
     width={props.width}
     height={props.height}
     color={props.color}
-    fill="none"
+    fill={props.fill}
     {...props}
   >
     <Path

@@ -1,8 +1,8 @@
-import { FlatList, StyleSheet, Text, View, Dimensions } from "react-native";
-import React from "react";
-import GroceriesCard from "./GroceriesCard";
+import { FlatList, StyleSheet, Text, View, Dimensions } from "react-native"
+import React from "react"
+import GroceriesCard from "./GroceriesCard"
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get("window")
 
 const GroceriesSingleRow = () => {
   const data = [
@@ -14,13 +14,13 @@ const GroceriesSingleRow = () => {
     { id: 6, image: require("../../assets/images/vegetable-basket.png") },
     { id: 7, image: require("../../assets/images/vegetable-basket.png") },
     { id: 8, image: require("../../assets/images/vegetable-basket.png") },
-  ];
+  ]
 
   const renderItem = ({ item }) => (
     <View style={styles.cardWrapper}>
       <GroceriesCard image={item.image} />
     </View>
-  );
+  )
 
   return (
     <View style={styles.container}>
@@ -31,12 +31,14 @@ const GroceriesSingleRow = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
+        snapToInterval={width * 4}
+        decelerationRate="normal"
       />
     </View>
-  );
-};
+  )
+}
 
-export default GroceriesSingleRow;
+export default GroceriesSingleRow
 
 const styles = StyleSheet.create({
   container: {
@@ -45,10 +47,10 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     paddingHorizontal: 10,
-    gap: 5
+    gap: 5,
   },
   cardWrapper: {
     width: width / 4 - 20,
     marginHorizontal: 5,
   },
-});
+})

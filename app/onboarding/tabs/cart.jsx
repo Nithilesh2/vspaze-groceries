@@ -1,11 +1,32 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, FlatList } from "react-native"
+import React, { useContext } from "react"
+import { AppContext } from "../../../context/AppContext"
 
 const Cart = () => {
+  const { cart } = useContext(AppContext)
+
+  const isCartEmpty = Object.keys(cart).length === 0
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cart</Text>
-      <Text style={styles.description}>Your selected loans will appear here.</Text>
+      {isCartEmpty ? (
+        <Text style={styles.title}>No data</Text>
+      ) : (
+        <FlatList
+          data={Object.entries(cart)}
+          keyExtractor={([itemId]) => itemId}
+          renderItem={({ item }) => {
+            const [itemId, quantity] = item
+            return (
+              <View style={styles.itemContainer}>
+                <Text style={styles.itemText}>
+                  Item ID: {itemId} - Quantity: {quantity}
+                </Text>
+              </View>
+            )
+          }}
+        />
+      )}
     </View>
   )
 }
@@ -15,18 +36,25 @@ export default Cart
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  description: {
+  itemContainer: {
+    backgroundColor: "#f8f8f8",
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    width: "100%",
+    alignItems: "center",
+  },
+  itemText: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginTop: 10,
+    color: "#333",
   },
-}) 
+})
