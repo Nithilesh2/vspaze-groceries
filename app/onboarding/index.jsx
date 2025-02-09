@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
-import { useRouter } from 'expo-router'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native"
+import React, { useState } from "react"
+import { useRouter } from "expo-router"
 
 const Login = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,14 +48,31 @@ const Login = () => {
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.push('/onboarding/tabs')}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("/onboarding/tabs")}
+          >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => router.push('/onboarding/register')}>
+            <TouchableOpacity
+              onPress={() => router.push("/onboarding/register")}
+            >
               <Text style={styles.registerLink}>Register</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.registerContainer}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => router.push("/onboarding/tabs/")}>
+              <Text
+                style={[
+                  styles.registerText,
+                  { fontSize: 18, color: "#8B00FF", fontWeight: "bold" },
+                ]}
+              >
+                Login as Guest{" "}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -62,7 +86,7 @@ export default Login
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   content: {
     flex: 1,
@@ -71,13 +95,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#8B00FF',
+    fontWeight: "bold",
+    color: "#8B00FF",
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 40,
   },
   form: {
@@ -88,47 +112,47 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#333',
-    fontWeight: '500',
+    color: "#333",
+    fontWeight: "500",
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     padding: 15,
     borderRadius: 8,
     fontSize: 16,
   },
   forgotPassword: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
   },
   forgotPasswordText: {
-    color: '#8B00FF',
+    color: "#8B00FF",
     fontSize: 14,
   },
   button: {
-    backgroundColor: '#8B00FF',
+    backgroundColor: "#8B00FF",
     padding: 15,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   registerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 20,
   },
   registerText: {
-    color: '#666',
+    color: "#666",
     fontSize: 14,
   },
   registerLink: {
-    color: '#8B00FF',
+    color: "#8B00FF",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
-}) 
+})

@@ -9,77 +9,115 @@ import {
   TouchableOpacity,
   Alert,
   ScrollView,
+  Linking,
 } from "react-native"
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import SearchBar from "../../../components/SearchBar"
 import Slider from "../../../components/Slider"
 import GroceriesSingleRow from "../../../components/groceriesTypes/GroceriesSingleRow"
 import { useRouter } from "expo-router"
 import SpecialOffersCard from "../../../components/specialOffers/SpecialOffersCard"
+import FestivalItems from "../../../components/festivalItems/FestivalItems"
+import Toast from "react-native-toast-message"
 import { AppContext } from "../../../context/AppContext"
 const { width } = Dimensions.get("window")
 
 const Index = () => {
   const router = useRouter()
-  const { like, setLike } = useContext(AppContext)
+  const openWhatsApp = (phoneNumber) => {
+    const url = `https://wa.me/${phoneNumber}`
+    Linking.openURL(url).catch(() =>
+      Alert.alert("Error", "WhatsApp is not installed!")
+    )
+  }
+  const { toastConfig } = useContext(AppContext)
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="green" />
-      <ScrollView style={styles.bottom}>
-        <SearchBar />
-        <View style={styles.sliderContainer}>
-          <Slider />
-        </View>
-
-        <View style={styles.groceriesCard}>
-          <Text style={styles.groceriesTitle}>Categories</Text>
-          <View style={styles.groceriesContainer}>
-            <View style={styles.seeAllContainer}>
-              <TouchableOpacity
-                onPress={() => router.push("/onboarding/tabs/categoryTabs")}
-              >
-                <Text style={styles.seeMore}>See All</Text>
-              </TouchableOpacity>
-            </View>
-            <GroceriesSingleRow />
-            <GroceriesSingleRow />
+    <>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="green" />
+        <ScrollView style={styles.bottom}>
+          <SearchBar />
+          <View style={styles.sliderContainer}>
+            <Slider />
           </View>
-        </View>
-        <View style={styles.middle}>
-          <Text style={styles.title}>Special Offers</Text>
-          <Image
-            source={require("../../../assets/images/discount.png")}
-            style={styles.discountImg}
-          />
-        </View>
-        <View style={styles.middleOffers}>
-          <Text style={[styles.seeMore, { paddingRight: 15 }]}>See All</Text>
-        </View>
 
-        <ScrollView
-          horizontal
-          pagingEnabled={true}
-          style={styles.cardsContainer}
-          snapToInterval={width / 2}
-          decelerationRate="normal"
-        >
-          {[...Array(6)].map((_, index) => (
-            <SpecialOffersCard key={index} itemId={index} /> 
-          ))}
+          <View style={styles.groceriesCard}>
+            <Text style={styles.groceriesTitle}>Categories</Text>
+            <View style={styles.groceriesContainer}>
+              <View style={styles.seeAllContainer}>
+                <TouchableOpacity
+                  onPress={() => router.push("/onboarding/tabs/categoryTabs")}
+                >
+                  <Text style={styles.seeMore}>See All</Text>
+                </TouchableOpacity>
+              </View>
+              <GroceriesSingleRow />
+              <GroceriesSingleRow />
+            </View>
+          </View>
+          <View style={styles.middle}>
+            <Text style={styles.title}>Special Offers</Text>
+            <Image
+              source={require("../../../assets/images/discount.png")}
+              style={styles.discountImg}
+            />
+          </View>
+          <View style={styles.middleOffers}>
+            <Text style={[styles.seeMore, { paddingRight: 15 }]}>See All</Text>
+          </View>
+
+          <ScrollView
+            horizontal
+            pagingEnabled={true}
+            style={styles.cardsContainer}
+            snapToInterval={width / 2}
+            decelerationRate="normal"
+          >
+            <SpecialOffersCard />
+          </ScrollView>
+
+          <View style={[styles.middle, { marginTop: 15 }]}>
+            <Text style={styles.title}>Festival Items</Text>
+            <Image
+              source={require("../../../assets/images/discount.png")}
+              style={styles.discountImg}
+            />
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={styles.middleOffers}
+            onPress={() => router.push("/onboarding/tabs/festivalItemsTabs")}
+          >
+            <Text style={[styles.seeMore, { paddingRight: 15 }]}>See All</Text>
+          </TouchableOpacity>
+          <ScrollView
+            horizontal
+            pagingEnabled={true}
+            style={styles.cardsContainer}
+            snapToInterval={1}
+            decelerationRate="normal"
+          >
+            <FestivalItems />
+          </ScrollView>
+
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={styles.whatsAppAndDeliveredContainer}
+            onPress={() => openWhatsApp(919908581431)}
+          >
+            <Image
+              source={require("../../../assets/images/whatsapp.png")}
+              style={styles.whatsAppImage}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.whatsAppAndDeliveredContainer}>
+            <Text style={styles.deliveredText}>Delivered in Next Day</Text>
+          </View>
         </ScrollView>
-
-        <View style={styles.whatsAppAndDeliveredContainer}>
-          <Image
-            source={require("../../../assets/images/whatsapp.png")}
-            style={styles.whatsAppImage}
-          />
-        </View>
-
-        <View style={styles.whatsAppAndDeliveredContainer}>
-          <Text style={styles.deliveredText}>Delivered in Next Day</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        <Toast position="bottom" bottomOffset={80} config={toastConfig} />
+      </SafeAreaView>
+    </>
   )
 }
 

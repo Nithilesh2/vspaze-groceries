@@ -1,12 +1,18 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Tabs } from "expo-router"
 import HomeIcon from "../../../assets/icons/Home"
 import ShoppingCartIcon from "../../../assets/icons/Cart"
 import ProfileIcon from "./../../../assets/icons/Profile"
 import FavouriteIcon from "./../../../assets/icons/Favourite"
 import OrdersIcon from "./../../../assets/icons/Orders"
+import { AppContext } from "../../../context/AppContext";
+import { Text, View } from 'react-native';
 
 const _layout = () => {
+
+  const { getTotalCartItems } = useContext(AppContext)
+  const cartCount = getTotalCartItems()
+
   return (
     <Tabs
       screenOptions={{
@@ -45,13 +51,27 @@ const _layout = () => {
         name="cart"
         options={{
           title: "Cart",
-          tabBarIcon: ({ color, size }) => (
-            <ShoppingCartIcon
-              width={28}
-              height={28}
-              color={color}
-              strokeWidth={1.4}
-            />
+          tabBarIcon: ({ color }) => (
+            <View>
+              <ShoppingCartIcon width={28} height={28} color={color} strokeWidth={1.4} />
+              {cartCount > 0 && (
+                <View
+                  style={{
+                    position: "absolute",
+                    right: -6,
+                    top: -3,
+                    backgroundColor: "red",
+                    borderRadius: 10,
+                    width: 18,
+                    height: 18,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>{cartCount}</Text>
+                </View>
+              )}
+            </View>
           ),
         }}
       />
@@ -87,7 +107,18 @@ const _layout = () => {
       <Tabs.Screen
         name="groceryItem"
         options={{
-          title: "Grocery",
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="festivalItemsTabs"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="singleCardDetails"
+        options={{
           href: null,
         }}
       />
