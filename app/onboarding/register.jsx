@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router'
 
@@ -6,12 +6,13 @@ const Register = () => {
   const router = useRouter();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Text style={styles.title}>Create Account</Text>
         <Text style={styles.subtitle}>Sign up to get started</Text>
 
@@ -25,7 +26,6 @@ const Register = () => {
               onChangeText={setFullName}
             />
           </View>
-
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Email</Text>
             <TextInput
@@ -35,6 +35,16 @@ const Register = () => {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Mobile Number</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your mobile number"
+              value={number}
+              onChangeText={setNumber}
+              keyboardType='number-pad'
             />
           </View>
 
@@ -71,7 +81,7 @@ const Register = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -85,8 +95,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
-    paddingTop: 40,
+    paddingHorizontal: 20,
+    marginVertical: 40,
   },
   title: {
     fontSize: 32,
@@ -118,14 +128,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: 'green',
+    backgroundColor: '#90EE90',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: 'black',
     fontSize: 16,
     fontWeight: '600',
   },

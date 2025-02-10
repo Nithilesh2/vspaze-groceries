@@ -13,7 +13,7 @@ const { width } = Dimensions.get("screen")
 
 const SemiCircleCutout = () => (
   <Svg width="20" height="40" viewBox="0 0 20 40" fill="none">
-    <Circle cx="10" cy="21" r="7.5" fill="green" />
+    <Circle cx="10" cy="21" r="7.5" fill="rgb(94, 191, 94)" />
   </Svg>
 )
 

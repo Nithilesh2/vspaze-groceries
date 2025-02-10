@@ -16,7 +16,7 @@ const _layout = () => {
         <Stack.Screen name="intro3" />
         <Stack.Screen name="onboarding" />
       </Stack>
-      <StatusBar barStyle="light-content" backgroundColor="green" />
+      <StatusBar barStyle="dark-content" backgroundColor="rgb(94, 191, 94)" />
     </AppStore>
   )
 }

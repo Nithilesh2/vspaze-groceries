@@ -21,6 +21,7 @@ import FestivalItems from "../../../components/festivalItems/FestivalItems"
 import Toast from "react-native-toast-message"
 import { AppContext } from "../../../context/AppContext"
 import Voucher from "../../../components/Voucher/Voucher"
+import DiscountIcon from "../../../assets/icons/Discount";
 const { width } = Dimensions.get("window")
 
 const Index = () => {
@@ -57,10 +58,7 @@ const Index = () => {
           </View>
           <View style={styles.middle}>
             <Text style={styles.title}>Special Offers</Text>
-            <Image
-              source={require("../../../assets/images/discount.png")}
-              style={styles.discountImg}
-            />
+            <DiscountIcon />
           </View>
           <View style={styles.middleOffers}>
             <Text style={[styles.seeMore, { paddingRight: 15 }]}>See All</Text>
@@ -78,10 +76,7 @@ const Index = () => {
 
           <View style={[styles.middle, { marginTop: 15 }]}>
             <Text style={styles.title}>Festival Items</Text>
-            <Image
-              source={require("../../../assets/images/discount.png")}
-              style={[styles.discountImg, { right: 81 }]}
-            />
+            <DiscountIcon />
           </View>
           <TouchableOpacity
             activeOpacity={0.9}
@@ -139,7 +134,7 @@ export default Index
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "green",
+    backgroundColor: "rgb(94, 191, 94)",
     paddingTop: StatusBar.currentHeight - 50 || 20,
   },
   containerView: {
@@ -164,17 +159,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    paddingRight: 20,
+    paddingRight: 7,
     textTransform: "uppercase",
     textAlign: "center",
-    color: "gold",
+    color: "black",
     fontWeight: "bold",
-  },
-  discountImg: {
-    width: 20,
-    height: 20,
-    position: "absolute",
-    right: 78,
   },
   bottom: {
     marginTop: 20,
@@ -241,14 +230,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: 10,
     textTransform: "uppercase",
-    color: "gold",
+    color: "black",
     textAlign: "center",
   },
   groceriesContainer: {
     width: width,
   },
   seeMore: {
-    color: "gold",
+    color: "black",
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "right",

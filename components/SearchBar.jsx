@@ -21,7 +21,7 @@ const CustomSearchBar = () => {
       <Notification03Icon
         height={30}
         width={30}
-        color="white"
+        color="black"
         style={styles.icon}
       />
     </View>

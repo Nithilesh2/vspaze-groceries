@@ -153,14 +153,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   button: {
-    backgroundColor: "green",
+    backgroundColor: "#90EE90",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    color: "#fff",
+    color: "black",
     fontSize: 16,
     fontWeight: "600",
   },

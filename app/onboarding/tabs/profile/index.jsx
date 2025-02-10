@@ -39,7 +39,7 @@ const Index = () => {
         <ProfileIcon
           height={84}
           width={84}
-          color="white"
+          color="black"
           style={styles.profileIcon}
         />
         <View style={styles.detailsContainer}>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   top: {
     padding: 20,
-    backgroundColor: "green",
+    backgroundColor: "rgb(94, 191, 94)",
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -184,10 +184,10 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "white",
+    color: "black",
   },
   email: {
-    color: "white",
+    color: "black",
     marginTop: 10,
     fontSize: 14,
     lineHeight: 20,

@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   bottomSection: {
     width: "100%",
     height: "40%",
-    backgroundColor: "green",
+    backgroundColor: "#90EE90",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: "center",
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    color: "#fff",
+    color: "black",
     fontSize: 24,
     fontWeight: "600",
     textAlign: "center",
@@ -88,17 +88,17 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgb(162, 162, 162)",
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     width: 10,
     height: 10,
-    borderRadius: 15
+    borderRadius: 15,
   },
   button: {
-    backgroundColor: "darkgreen",
+    backgroundColor: "rgba(0, 0, 0, 0.76)",
     paddingHorizontal: 50,
     paddingVertical: 15,
     borderRadius: 25,

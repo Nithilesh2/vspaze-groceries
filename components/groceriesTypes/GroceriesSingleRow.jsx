@@ -31,7 +31,6 @@ const GroceriesSingleRow = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
-        snapToInterval={width * 4}
         decelerationRate="normal"
       />
     </View>
