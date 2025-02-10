@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   bottomSection: {
     width: '100%',
     height: '40%',
-    backgroundColor: '#8B00FF', // Purple color
+    backgroundColor: 'green',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: 'center',
@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
     width: 20,
   },
   button: {
-    backgroundColor: '#6B00CC', // Darker purple
+    backgroundColor: 'darkgreen',
     paddingHorizontal: 50,
     paddingVertical: 15,
     borderRadius: 25,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
   },
 })

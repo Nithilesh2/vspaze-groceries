@@ -20,8 +20,9 @@ import WalletIcon from "./../../../assets/icons/MyWallet"
 import ChatIcon from "./../../../assets/icons/Chat"
 import CustomerService01Icon from "./../../../assets/icons/Help"
 import AccountSetting01Icon from "./../../../assets/icons/AboutUs"
-import PolicyIcon from './../../../assets/icons/Refund';
-import DeliveryBox01Icon from './../../../assets/icons/Shipping';
+import PolicyIcon from "./../../../assets/icons/Refund"
+import DeliveryBox01Icon from "./../../../assets/icons/Shipping"
+import LogoutIcon from "./../../../assets/icons/Logout"
 
 const Profile = () => {
   const router = useRouter()
@@ -140,13 +141,20 @@ const Profile = () => {
             </TouchableOpacity>
           </View>
         </View>
+        <View style={styles.logoutContaner}>
+          <TouchableOpacity style={styles.logoutBox} onPress={handleLogout}>
+            <LogoutIcon style={styles.logout} />
+            <View style={styles.logoutButton}>
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   )
 }
 
 export default Profile
-
 
 const styles = StyleSheet.create({
   container: {
@@ -225,13 +233,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    marginTop: 15,
     borderRadius: 15,
     paddingVertical: 3,
     backgroundColor: "#ff4d4d",
   },
   logout: {
     color: "#fff",
+  },
+  logoutContaner: {
+    width: "100%",
+    alignItems: "center",
   },
   logoutButton: {
     borderRadius: 8,

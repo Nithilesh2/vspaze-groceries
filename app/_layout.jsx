@@ -1,6 +1,7 @@
 import React from "react"
 import { Stack } from "expo-router"
 import AppStore from "../context/AppStore"
+import { StatusBar } from "react-native";
 
 const _layout = () => {
   return (
@@ -13,6 +14,7 @@ const _layout = () => {
         <Stack.Screen name="index" />
         <Stack.Screen name="onboarding" />
       </Stack>
+      <StatusBar barStyle="light-content" backgroundColor="green" />
     </AppStore>
   )
 }

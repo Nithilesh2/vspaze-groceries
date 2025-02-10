@@ -81,7 +81,7 @@ const FestivalItems = () => {
           <TouchableOpacity
             activeOpacity={1}
             style={styles.boxContainer}
-            onPress={() => router.push("onboarding/tabs/singleCardDetails")}
+            onPress={() => router.push(`/onboarding/tabs/singleCardDetails?id=${item.id}`)}
           >
             <Text style={styles.offerContainer}>{item.discount}</Text>
             <TouchableOpacity

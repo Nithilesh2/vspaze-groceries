@@ -14,43 +14,93 @@ import LeftArrowIcon from "./../../../assets/icons/LeftArrow"
 import { AntDesign } from "@expo/vector-icons"
 import FavouriteIcon from "../../../assets/icons/Favourite"
 import StarIcon from "../../../assets/icons/Star"
-import { router, useRouter } from "expo-router";
+import { router, useLocalSearchParams, useRouter } from "expo-router"
+
+const data = [
+  {
+    id: "so1",
+    name: "Apple",
+    images: [
+      require("./../../../assets/images/apple.png"),
+      require("./../../../assets/images/apple-2.png"),
+      require("./../../../assets/images/apple-3.jpg"),
+    ],
+    category: "Smart Shopping",
+    price: 40.5,
+    discountPrice: 45.0,
+    unit: "Kg",
+    rating: 0.0,
+    inStock: true,
+    description:
+      "Fresh and juicy apples, perfect for a healthy snack. Sourced directly from organic farms to ensure the best quality.",
+  },
+  {
+    id: "gi2",
+    name: "Milk",
+    images: [
+      require("./../../../assets/images/milk.png"),
+      require("./../../../assets/images/milk.png"),
+      require("./../../../assets/images/milk.png"),
+    ],
+    category: "Dairy Products",
+    price: 25.0,
+    discountPrice: 30.0,
+    unit: "Litre",
+    rating: 4.5,
+    inStock: true,
+    description:
+      "Fresh and pure cow milk, rich in calcium and essential nutrients. Ideal for daily consumption and dairy preparations.",
+  },
+  {
+    id: "gi1",
+    name: "Water",
+    images: [
+      require("./../../../assets/images/water1.png"),
+      require("./../../../assets/images/water1.png"),
+      require("./../../../assets/images/water1.png"),
+    ],
+    category: "Beverages",
+    price: 10.0,
+    discountPrice: 12.0,
+    unit: "Litre",
+    rating: 5.0,
+    inStock: true,
+    description:
+      "Clean and purified drinking water, ensuring safety and hydration. Sourced from natural springs for a refreshing taste.",
+  },
+]
 
 const { width } = Dimensions.get("window")
 
 const SingleCardDetails = () => {
   const [quantity, setQuantity] = useState(1)
   const [activeIndex, setActiveIndex] = useState(0)
-  const price = 40.5
-  const discountPrice = 45.0
-  const totalAmount = (quantity * price).toFixed(2)
   const router = useRouter()
+  const { id } = useLocalSearchParams()
 
-  const images = [
-    require("./../../../assets/images/apple.png"),
-    require("./../../../assets/images/apple-2.png"),
-    require("./../../../assets/images/apple-3.jpg"),
-  ]
+  const isAppleProduct = /^((fi|so)[1-9]|(fi|so)10)$/.test(id)
+  const isWaterProduct = /^gi[13579]$/.test(id) 
+  const isMilkProduct = /^gi[02468]$/.test(id) 
 
-  const renderItem = ({ item }) => (
-    <Image source={item} style={styles.productImage} />
-  )
+  const product = isAppleProduct
+    ? data[0]
+    : isMilkProduct
+    ? data[1]
+    : isWaterProduct
+    ? data[2]
+    : null
 
-  const renderPaginationDots = () => {
+  if (!product) {
     return (
-      <View style={styles.paginationContainer}>
-        {images.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.paginationDot,
-              { backgroundColor: index === activeIndex ? "green" : "gray" },
-            ]}
-          />
-        ))}
-      </View>
+      <SafeAreaView style={styles.container}>
+        <Text style={{ textAlign: "center", marginTop: 50, fontSize: 18 }}>
+          Product not found.
+        </Text>
+      </SafeAreaView>
     )
   }
+
+  const totalAmount = (quantity * product.price).toFixed(2)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,8 +117,10 @@ const SingleCardDetails = () => {
 
         <View style={styles.imageContainer}>
           <FlatList
-            data={images}
-            renderItem={renderItem}
+            data={product.images}
+            renderItem={({ item }) => (
+              <Image source={item} style={styles.productImage} />
+            )}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
@@ -80,40 +132,54 @@ const SingleCardDetails = () => {
               setActiveIndex(index)
             }}
           />
-          {renderPaginationDots()}
+          <View style={styles.paginationContainer}>
+            {product.images.map((_, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.paginationDot,
+                  { backgroundColor: index === activeIndex ? "green" : "gray" },
+                ]}
+              />
+            ))}
+          </View>
         </View>
 
         <View style={styles.detailsContainer}>
           <View style={styles.oneContainer}>
-            <Text style={styles.productName}>Apple</Text>
+            <Text style={styles.productName}>{product.name}</Text>
             <FavouriteIcon height={18} width={18} color="black" fill="none" />
           </View>
-          <Text style={styles.subText}>Smart Shopping</Text>
+          <Text style={styles.subText}>{product.category}</Text>
 
           <View style={styles.priceContainer}>
             <View style={styles.price}>
-              <Text style={styles.price}>₹ {price}</Text>
-              <Text style={styles.discountPrice}>₹ {discountPrice}</Text>
+              <Text style={styles.price}>₹ {product.price}</Text>
+              <Text style={styles.discountPrice}>
+                ₹ {product.discountPrice}
+              </Text>
             </View>
             <View style={styles.itemWeightType}>
-              <Text style={styles.itemWeightText}>Kg</Text>
+              <Text style={styles.itemWeightText}>{product.unit}</Text>
             </View>
           </View>
 
           <View style={styles.stockContainer}>
             <View style={styles.ratingContainer}>
-              <Text style={styles.ratingText}>0.0</Text>
+              <Text style={styles.ratingText}>{product.rating}</Text>
               {[...Array(5)].map((_, index) => (
                 <StarIcon
                   height={20}
                   width={20}
-                  color="grey"
-                  fill="grey"
+                  color={index < product.rating ? "gold" : "grey"}
+                  fill={index < product.rating ? "gold" : "grey"}
                   key={index}
                 />
               ))}
             </View>
-            <Text style={styles.inStock}>In Stock</Text>
+            <Text style={styles.inStock}>
+              {product.inStock ? "In Stock" : "Out of Stock"}
+            </Text>
           </View>
 
           <View style={styles.horizantalLine} />
@@ -143,10 +209,7 @@ const SingleCardDetails = () => {
 
           <View style={styles.descriptionContainer}>
             <Text style={styles.descriptionTitle}>Description</Text>
-            <Text style={styles.descriptionText}>
-              Fresh and juicy apples, perfect for a healthy snack. Sourced
-              directly from organic farms to ensure the best quality.
-            </Text>
+            <Text style={styles.descriptionText}>{product.description}</Text>
           </View>
         </View>
       </ScrollView>
@@ -217,7 +280,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   subText: {
-    color: "green",
+    color: "black",
     marginVertical: 5,
   },
   priceContainer: {

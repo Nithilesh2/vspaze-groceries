@@ -51,9 +51,11 @@ const SpecialOffersCard = () => {
       {data.map((item) => (
         <View key={item.id} style={styles.categoryContainer}>
           <TouchableOpacity
-            activeOpacity={1}
+            activeOpacity={0.9}
             style={styles.boxContainer}
-            onPress={() => router.push("onboarding/tabs/singleCardDetails")}
+            onPress={() =>
+              router.push(`/onboarding/tabs/singleCardDetails?id=${item.id}`)
+            }
           >
             <TouchableOpacity
               activeOpacity={0.9}

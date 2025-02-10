@@ -34,7 +34,6 @@ const Index = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="green" />
         <ScrollView style={styles.bottom}>
           <SearchBar />
           <View style={styles.sliderContainer}>
@@ -80,7 +79,7 @@ const Index = () => {
             <Text style={styles.title}>Festival Items</Text>
             <Image
               source={require("../../../assets/images/discount.png")}
-              style={styles.discountImg}
+              style={[styles.discountImg, {right: 81}]}
             />
           </View>
           <TouchableOpacity
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     position: "absolute",
-    right: 75,
+    right: 78,
   },
   bottom: {
     marginTop: 20,

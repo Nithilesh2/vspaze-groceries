@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  Image,
 } from "react-native"
 import React, { useState } from "react"
 import { useRouter } from "expo-router"
@@ -13,70 +14,87 @@ const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const handleLogin = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      router.push("/onboarding/tabs/")
+    }, 500)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Welcome Back!</Text>
-        <Text style={styles.subtitle}>Sign in to continue</Text>
+      {loading ? (
+        <View style={styles.imageContainer}>
+          <Image
+          source={require("../../assets/images/loadingImg.png")}
+          style={styles.loadingImage}
+          resizeMode="contain"
+        />
+        </View>
+      ) : (
+        <View style={styles.content}>
+          <Image source={require('../../assets/images/loginScreen.png')} style={styles.loginImg}/>
+          <Text style={styles.title}>Welcome Back!</Text>
 
-        <View style={styles.form}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your email"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
+          <View style={styles.form}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-          </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+              />
+            </View>
 
-          <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => router.push("/onboarding/tabs")}
-          >
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-
-          <View style={styles.registerContainer}>
-            <Text style={styles.registerText}>Don't have an account? </Text>
             <TouchableOpacity
-              onPress={() => router.push("/onboarding/register")}
+              style={styles.button}
+              onPress={handleLogin}
             >
-              <Text style={styles.registerLink}>Register</Text>
+              <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-          </View>
-          <View style={styles.registerContainer}>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => router.push("/onboarding/tabs/")}>
-              <Text
-                style={[
-                  styles.registerText,
-                  { fontSize: 18, color: "#8B00FF", fontWeight: "bold" },
-                ]}
+
+            <View style={styles.registerContainer}>
+              <Text style={styles.registerText}>Don't have an account? </Text>
+              <TouchableOpacity
+                onPress={() => router.push("/onboarding/register")}
               >
-                Login as Guest{" "}
-              </Text>
-            </TouchableOpacity>
+                <Text style={styles.registerLink}>Register</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.registerContainer}>
+              <TouchableOpacity activeOpacity={0.9} onPress={handleLogin}>
+                <Text
+                  style={[
+                    styles.registerText,
+                    { fontSize: 18, color: "green", fontWeight: "bold" },
+                  ]}
+                >
+                  Login as Guest
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   )
 }
@@ -88,32 +106,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  imageContainer :{
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingImage: {
+    width: 150,
+    height: 150,
+  },
   content: {
     flex: 1,
     padding: 20,
     paddingTop: 40,
   },
+  loginImg: {
+    width: 250,
+    height: 250,
+    marginBottom: 20,
+    alignSelf: "center",
+  },
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#8B00FF",
+    color: "green",
     marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 40,
   },
   form: {
     gap: 20,
   },
   inputContainer: {
     gap: 8,
-  },
-  label: {
-    fontSize: 14,
-    color: "#333",
-    fontWeight: "500",
   },
   input: {
     borderWidth: 1,
@@ -126,11 +149,11 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   forgotPasswordText: {
-    color: "#8B00FF",
+    color: "green",
     fontSize: 14,
   },
   button: {
-    backgroundColor: "#8B00FF",
+    backgroundColor: "green",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
@@ -151,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   registerLink: {
-    color: "#8B00FF",
+    color: "green",
     fontSize: 14,
     fontWeight: "600",
   },

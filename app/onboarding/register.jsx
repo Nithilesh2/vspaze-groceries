@@ -66,7 +66,7 @@ const Register = () => {
 
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account? </Text>
-            <TouchableOpacity onPress={() => router.push('/onboarding/login')}>
+            <TouchableOpacity onPress={() => router.push('/onboarding/')}>
               <Text style={styles.loginLink}>Login</Text>
             </TouchableOpacity>
           </View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#8B00FF',
+    color: 'green',
     marginBottom: 10,
   },
   subtitle: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#8B00FF',
+    backgroundColor: 'green',
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   loginLink: {
-    color: '#8B00FF',
+    color: 'green',
     fontSize: 14,
     fontWeight: '600',
   },

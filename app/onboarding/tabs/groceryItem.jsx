@@ -7,88 +7,92 @@ import {
   TouchableOpacity,
   View,
 } from "react-native"
-import React from "react"
+import React, { useContext } from "react"
 import { ScrollView } from "react-native"
-import LeftArrowIcon from "../../../assets/icons/LeftArrow";
-import { useRouter } from "expo-router";
+import LeftArrowIcon from "../../../assets/icons/LeftArrow"
+import { useRouter } from "expo-router"
+import FavouriteIcon from "../../../assets/icons/Favourite"
+import { AppContext } from "../../../context/AppContext"
+import RemoveIcon from "../../../assets/icons/Remove"
+import AddIcon from "../../../assets/icons/Add"
 
 const { width } = Dimensions.get("window")
 const GroceryItem = () => {
+  const { handleLike, likes, handleRemove, handleAdd, cart } =
+    useContext(AppContext)
   const data = [
     {
-      id: 1,
+      id: "gi1",
       title: "Water",
-      description: "Fresh and pure drinking water for hydration.",
+      description: "Pure drinking water for hydration.",
       amount: 30,
-      image: require("../../../assets/images/water.jpeg"),
+      image: require("../../../assets/images/water1.png"),
     },
     {
-      id: 2,
+      id: "gi2",
       title: "Milk",
-      description: "Fresh milk from healthy cows, rich in nutrients.",
+      description: "Nutrient-rich cow's milk.",
       amount: 45,
       image: require("../../../assets/images/milk.png"),
     },
     {
-      id: 3,
+      id: "gi3",
       title: "Water",
-      description: "Fresh and pure drinking water for hydration.",
+      description: "Pure drinking water for hydration.",
       amount: 30,
-      image: require("../../../assets/images/water.jpeg"),
+      image: require("../../../assets/images/water1.png"),
     },
     {
-      id: 4,
+      id: "gi4",
       title: "Milk",
-      description: "Fresh milk from healthy cows, rich in nutrients.",
+      description: "Nutrient-rich cow's milk.",
       amount: 45,
       image: require("../../../assets/images/milk.png"),
     },
     {
-      id: 5,
+      id: "gi5",
       title: "Water",
-      description: "Fresh and pure drinking water for hydration.",
+      description: "Pure drinking water for hydration.",
       amount: 30,
-      image: require("../../../assets/images/water.jpeg"),
+      image: require("../../../assets/images/water1.png"),
     },
     {
-      id: 6,
+      id: "gi6",
       title: "Milk",
-      description: "Fresh milk from healthy cows, rich in nutrients.",
+      description: "Nutrient-rich cow's milk.",
       amount: 45,
       image: require("../../../assets/images/milk.png"),
     },
     {
-      id: 7,
+      id: "gi7",
       title: "Water",
-      description: "Fresh and pure drinking water for hydration.",
+      description: "Pure drinking water for hydration.",
       amount: 30,
-      image: require("../../../assets/images/water.jpeg"),
+      image: require("../../../assets/images/water1.png"),
     },
     {
-      id: 8,
+      id: "gi8",
       title: "Milk",
-      description: "Fresh milk from healthy cows, rich in nutrients.",
+      description: "Nutrient-rich cow's milk.",
       amount: 45,
       image: require("../../../assets/images/milk.png"),
     },
     {
-      id: 9,
+      id: "gi9",
       title: "Water",
-      description: "Fresh and pure drinking water for hydration.",
+      description: "Pure drinking water for hydration.",
       amount: 30,
-      image: require("../../../assets/images/water.jpeg"),
+      image: require("../../../assets/images/water1.png"),
     },
     {
-      id: 10,
+      id: "gi10",
       title: "Milk",
-      description: "Fresh milk from healthy cows, rich in nutrients.",
+      description: "Nutrient-rich cow's milk.",
       amount: 45,
       image: require("../../../assets/images/milk.png"),
     },
   ]
-  const addToCart = (itemName) => {
-    Alert.alert("Success", `${itemName} added to cart!`)
-  }
+
   const router = useRouter()
   return (
     <>
@@ -103,19 +107,68 @@ const GroceryItem = () => {
           <Text style={styles.headerText}>Category Items</Text>
         </View>
         <View style={styles.cardsContainer}>
-          {data.map((item, index) => (
-            <View key={index} style={styles.card}>
+          {data.map((item) => (
+            <TouchableOpacity
+              onPress={() =>
+                router.push(`/onboarding/tabs/singleCardDetails?id=${item.id}`)
+              }
+              key={item.id}
+              style={styles.card}
+              activeOpacity={0.9}
+            >
+              <TouchableOpacity
+                activeOpacity={0.9}
+                style={styles.likeContainer}
+                onPress={() => handleLike(item.id)}
+              >
+                {likes[item.id] ? (
+                  <FavouriteIcon
+                    height={18}
+                    width={18}
+                    color="red"
+                    fill="red"
+                  />
+                ) : (
+                  <FavouriteIcon
+                    height={18}
+                    width={18}
+                    color="black"
+                    fill="none"
+                  />
+                )}
+              </TouchableOpacity>
               <Image source={item.image} style={styles.cardImage} />
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardDescription}>{item.description}</Text>
               <Text style={styles.cardAmount}>{item.amount} lbs</Text>
-              <TouchableOpacity
-                style={styles.addToCartButton}
-                onPress={() => addToCart("Water")}
-              >
-                <Text style={styles.addToCartText}>Add to Cart</Text>
-              </TouchableOpacity>
-            </View>
+              {cart[item.id] ? (
+                <View style={styles.addContainer}>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    style={styles.addAndRemove}
+                    onPress={() => handleRemove(item.id)}
+                  >
+                    <RemoveIcon height={16} width={16} color="white" />
+                  </TouchableOpacity>
+                  <Text style={styles.cartQuantity}>{cart[item.id]}</Text>
+                  <TouchableOpacity
+                    activeOpacity={0.9}
+                    style={styles.addAndRemove}
+                    onPress={() => handleAdd(item.id)}
+                  >
+                    <AddIcon height={16} width={16} color="white" />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  style={styles.addToCartButton}
+                  onPress={() => handleAdd(item.id)}
+                >
+                  <Text style={styles.addToCartText}>Add to Cart</Text>
+                </TouchableOpacity>
+              )}
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -129,6 +182,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f8f8f8",
+  },
+  likeContainer: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    padding: 5,
+    borderRadius: 50,
+    elevation: 3,
+    zIndex: 9,
   },
   top: {
     paddingTop: 20,
@@ -157,7 +220,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: width / 2.5,
-    height: 280,
+    height: 300,
     padding: 10,
     marginBottom: 20,
   },
@@ -195,5 +258,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  addContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  addAndRemove: {
+    backgroundColor: "#ff5722",
+    padding: 5,
+    borderRadius: 8,
+  },
+  cartQuantity: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#333",
+    paddingHorizontal: 10,
   },
 })
