@@ -12,6 +12,8 @@ const _layout = () => {
         }}
       >
         <Stack.Screen name="index" />
+        <Stack.Screen name="intro2" />
+        <Stack.Screen name="intro3" />
         <Stack.Screen name="onboarding" />
       </Stack>
       <StatusBar barStyle="light-content" backgroundColor="green" />

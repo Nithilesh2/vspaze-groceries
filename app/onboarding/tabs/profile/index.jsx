@@ -6,29 +6,32 @@ import {
   ScrollView,
 } from "react-native"
 import React from "react"
-import ProfileIcon from "./../../../assets/icons/Profile"
-import UpdateProfileIcon from "./../../../assets/icons/UpdateProfile"
-import ArrowRightIcon from "./../../../assets/icons/ArrowRight"
-import TACIcon from "./../../../assets/icons/TAndC"
-import PrivacyPolicyIcon from "./../../../assets/icons/PrivacyPolicy"
 import { useRouter } from "expo-router"
-import AddressIcon from "./../../../assets/icons/Address"
-import LanguageIcon from "./../../../assets/icons/Language"
-import CouponIcon from "./../../../assets/icons/Coupon"
-import StarIcon from "../../../assets/icons/Star"
-import WalletIcon from "./../../../assets/icons/MyWallet"
-import ChatIcon from "./../../../assets/icons/Chat"
-import CustomerService01Icon from "./../../../assets/icons/Help"
-import AccountSetting01Icon from "./../../../assets/icons/AboutUs"
-import PolicyIcon from "./../../../assets/icons/Refund"
-import DeliveryBox01Icon from "./../../../assets/icons/Shipping"
-import LogoutIcon from "./../../../assets/icons/Logout"
+import ProfileIcon from "../../../../assets/icons/Profile"
+import UpdateProfileIcon from "./../../../../assets/icons/UpdateProfile"
+import ArrowRightIcon from "./../../../../assets/icons/ArrowRight"
+import AddressIcon from "./../../../../assets/icons/Address"
+import LanguageIcon from "./../../../../assets/icons/Language"
+import CouponIcon from "./../../../../assets/icons/Coupon"
+import StarIcon from "../../../../assets/icons/Star"
+import WalletIcon from "./../../../../assets/icons/MyWallet"
+import ChatIcon from "./../../../../assets/icons/Chat"
+import CustomerService01Icon from "./../../../../assets/icons/Help"
+import AccountSetting01Icon from "./../../../../assets/icons/AboutUs"
+import PrivacyPolicyIcon from "./../../../../assets/icons/PrivacyPolicy"
+import PolicyIcon from "./../../../../assets/icons/Refund"
+import DeliveryBox01Icon from "./../../../../assets/icons/Shipping"
+import LogoutIcon from "./../../../../assets/icons/Logout"
+import TACIcon from "./../../../../assets/icons/TAndC"
 
-const Profile = () => {
+const Index = () => {
   const router = useRouter()
 
   const handleLogout = () => {
     router.replace("onboarding/")
+  }
+  const handleSend = (routerName) => {
+    router.push(`onboarding/tabs/profile/${routerName}`)
   }
   return (
     <ScrollView style={styles.container}>
@@ -116,7 +119,11 @@ const Profile = () => {
               <ArrowRightIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.button}
+              onPress={() => handleSend("privacyPolicy")}
+            >
               <PrivacyPolicyIcon />
               <Text style={styles.buttonText}>Privacy Policy</Text>
               <ArrowRightIcon />
@@ -154,7 +161,7 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default Index
 
 const styles = StyleSheet.create({
   container: {

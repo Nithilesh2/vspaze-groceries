@@ -20,6 +20,7 @@ import SpecialOffersCard from "../../../components/specialOffers/SpecialOffersCa
 import FestivalItems from "../../../components/festivalItems/FestivalItems"
 import Toast from "react-native-toast-message"
 import { AppContext } from "../../../context/AppContext"
+import Voucher from "../../../components/Voucher/Voucher"
 const { width } = Dimensions.get("window")
 
 const Index = () => {
@@ -79,7 +80,7 @@ const Index = () => {
             <Text style={styles.title}>Festival Items</Text>
             <Image
               source={require("../../../assets/images/discount.png")}
-              style={[styles.discountImg, {right: 81}]}
+              style={[styles.discountImg, { right: 81 }]}
             />
           </View>
           <TouchableOpacity
@@ -113,7 +114,20 @@ const Index = () => {
           <View style={styles.whatsAppAndDeliveredContainer}>
             <Text style={styles.deliveredText}>Delivered in Next Day</Text>
           </View>
+          <View style={[styles.middle, { marginTop: 15, marginBottom: 5 }]}>
+            <Text style={[styles.title, { paddingRight: 0 }]}>Vouchers</Text>
+          </View>
+          <View style={styles.voucherContainer}>
+            <Voucher />
+          </View>
+          <View style={styles.fixableBannerContainer}>
+            <Image
+              source={require("../../../assets/images/banner2row.jpg")}
+              style={styles.fixableBanner}
+            />
+          </View>
         </ScrollView>
+
         <Toast position="bottom" bottomOffset={80} config={toastConfig} />
       </SafeAreaView>
     </>
@@ -263,6 +277,17 @@ const styles = StyleSheet.create({
     objectFit: "contain",
     backgroundColor: "lightgrey",
     marginVertical: 10,
+  },
+  fixableBannerContainer: {
+    width: width,
+    marginVertical: 20,
+  },
+  fixableBanner: {
+    width: width - 40,
+    height: 160,
+    resizeMode: "cover",
+    alignSelf: "center",
+    borderRadius: 10,
   },
   deliveredText: {
     width: "95%",

@@ -3,48 +3,53 @@ import React from "react"
 import { StatusBar } from "expo-status-bar"
 import { useRouter } from "expo-router"
 
-const index = () => {
+const Intro3 = () => {
   const router = useRouter()
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Image
-          source={require("../assets/images/intro-1.png")}
+          source={require("../assets/images/intro-3.jpg")}
           style={styles.image}
           resizeMode="contain"
         />
 
         <View style={styles.bottomSection}>
           <Text style={styles.title}>
-            Bringing Groceries to Your Doorstep, Hassle-Free!
+            Quality Groceries, Quick Delivery, Happy You!
           </Text>
-
-          {/* Dots Indicator */}
 
           <View style={styles.dotsContainer}>
             {[0, 1, 2].map((dot, index) => (
               <View
                 key={index}
-                style={[styles.dot, index === 0 && styles.activeDot]}
+                style={[styles.dot, index === 2 && styles.activeDot]}
               />
             ))}
           </View>
 
-          {/* Next Button */}
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => router.push("/intro2")}
-          >
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => router.push("intro2")}
+            >
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => router.push("onboarding/")}
+            >
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
   )
 }
 
-export default index
+export default Intro3
 
 const styles = StyleSheet.create({
   container: {
@@ -95,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: 10,
     height: 10,
-    borderRadius: 15
+    borderRadius: 15,
   },
   button: {
     backgroundColor: "darkgreen",
@@ -108,4 +113,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
   },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    paddingBottom: 40,
+  }
 })

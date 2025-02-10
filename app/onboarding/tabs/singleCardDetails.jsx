@@ -1,3 +1,4 @@
+import React, { useContext, useState, useRef } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -8,13 +9,15 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
-} from "react-native"
-import React, { useState } from "react"
-import LeftArrowIcon from "./../../../assets/icons/LeftArrow"
-import { AntDesign } from "@expo/vector-icons"
-import FavouriteIcon from "../../../assets/icons/Favourite"
-import StarIcon from "../../../assets/icons/Star"
-import { router, useLocalSearchParams, useRouter } from "expo-router"
+  Animated,
+} from "react-native";
+import LeftArrowIcon from "./../../../assets/icons/LeftArrow";
+import { AntDesign } from "@expo/vector-icons";
+import FavouriteIcon from "../../../assets/icons/Favourite";
+import StarIcon from "../../../assets/icons/Star";
+import { router, useLocalSearchParams } from "expo-router";
+import ShoppingCartIcon from "../../../assets/icons/Cart";
+import { AppContext } from "../../../context/AppContext";
 
 const data = [
   {
@@ -29,7 +32,7 @@ const data = [
     price: 40.5,
     discountPrice: 45.0,
     unit: "Kg",
-    rating: 0.0,
+    rating: 3.0,
     inStock: true,
     description:
       "Fresh and juicy apples, perfect for a healthy snack. Sourced directly from organic farms to ensure the best quality.",
@@ -46,7 +49,7 @@ const data = [
     price: 25.0,
     discountPrice: 30.0,
     unit: "Litre",
-    rating: 4.5,
+    rating: 4.0,
     inStock: true,
     description:
       "Fresh and pure cow milk, rich in calcium and essential nutrients. Ideal for daily consumption and dairy preparations.",
@@ -68,19 +71,21 @@ const data = [
     description:
       "Clean and purified drinking water, ensuring safety and hydration. Sourced from natural springs for a refreshing taste.",
   },
-]
+];
 
-const { width } = Dimensions.get("window")
+const { width } = Dimensions.get("window");
 
 const SingleCardDetails = () => {
-  const [quantity, setQuantity] = useState(1)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const router = useRouter()
-  const { id } = useLocalSearchParams()
+  const { handleAdd, handleRemove, getTotalCartItems, cart } = useContext(AppContext);
+  const cartCount = getTotalCartItems();
 
-  const isAppleProduct = /^((fi|so)[1-9]|(fi|so)10)$/.test(id)
-  const isWaterProduct = /^gi[13579]$/.test(id) 
-  const isMilkProduct = /^gi[02468]$/.test(id) 
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const { id } = useLocalSearchParams();
+
+  const isAppleProduct = /^((fi|so)[1-9]|(fi|so)10)$/.test(id);
+  const isWaterProduct = /^gi[13579]$/.test(id);
+  const isMilkProduct = /^gi[02468]$/.test(id);
 
   const product = isAppleProduct
     ? data[0]
@@ -88,7 +93,28 @@ const SingleCardDetails = () => {
     ? data[1]
     : isWaterProduct
     ? data[2]
-    : null
+    : null;
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const handleLoading = () => {
+    setLoading(true);
+    handleAdd(id);
+
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(() => {
+      setTimeout(() => {
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }).start(() => setLoading(false));
+      }, 1000);
+    });
+  };
 
   if (!product) {
     return (
@@ -97,10 +123,8 @@ const SingleCardDetails = () => {
           Product not found.
         </Text>
       </SafeAreaView>
-    )
+    );
   }
-
-  const totalAmount = (quantity * product.price).toFixed(2)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -113,6 +137,35 @@ const SingleCardDetails = () => {
             onPress={() => router.back()}
           />
           <Text style={styles.headerText}>Item Details</Text>
+          <View>
+            <ShoppingCartIcon
+              width={28}
+              height={28}
+              color="black"
+              strokeWidth={1.4}
+            />
+            {cartCount > 0 && (
+              <View
+                style={{
+                  position: "absolute",
+                  right: -6,
+                  top: -3,
+                  backgroundColor: "red",
+                  borderRadius: 10,
+                  width: 18,
+                  height: 18,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
+                >
+                  {cartCount}
+                </Text>
+              </View>
+            )}
+          </View>
         </TouchableOpacity>
 
         <View style={styles.imageContainer}>
@@ -128,8 +181,8 @@ const SingleCardDetails = () => {
             onMomentumScrollEnd={(event) => {
               const index = Math.round(
                 event.nativeEvent.contentOffset.x / width
-              )
-              setActiveIndex(index)
+              );
+              setActiveIndex(index);
             }}
           />
           <View style={styles.paginationContainer}>
@@ -189,23 +242,23 @@ const SingleCardDetails = () => {
             <View style={styles.quantityControls}>
               <TouchableOpacity
                 activeOpacity={0.9}
-                onPress={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}
                 style={styles.quantityButton}
+                onPress={() => handleRemove(id)}
               >
                 <AntDesign name="minus" size={12} color="black" />
               </TouchableOpacity>
-              <Text style={styles.quantityText}>{quantity}</Text>
+              <Text style={styles.quantityText}>{cart[id] || 0}</Text>
               <TouchableOpacity
                 activeOpacity={0.9}
-                onPress={() => setQuantity(quantity + 1)}
                 style={styles.quantityButton}
+                onPress={() => handleAdd(id)}
               >
                 <AntDesign name="plus" size={12} color="black" />
               </TouchableOpacity>
             </View>
           </View>
 
-          <Text style={styles.totalAmount}>Total Amount: ₹ {totalAmount}</Text>
+          <Text style={styles.totalAmount}>Total Amount: ₹ {}</Text>
 
           <View style={styles.descriptionContainer}>
             <Text style={styles.descriptionTitle}>Description</Text>
@@ -214,14 +267,33 @@ const SingleCardDetails = () => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity activeOpacity={0.9} style={styles.addToCartButton}>
-        <Text style={styles.addToCartText}>Add To Cart</Text>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        style={styles.addToCartButton}
+        onPress={handleLoading}
+      >
+        {loading ? (
+          <Animated.View style={[styles.toastConfig, { opacity: fadeAnim }]}>
+            <View style={styles.left}>
+              <Text style={styles.title}>Item Added</Text>
+              <Text style={styles.subtitle}>Check your cart for details</Text>
+            </View>
+            <Text
+              style={styles.right}
+              onPress={() => router.push("onboarding/tabs/cart")}
+            >
+              View
+            </Text>
+          </Animated.View>
+        ) : (
+          <Text style={styles.addToCartText}>Add To Cart</Text>
+        )}
       </TouchableOpacity>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default SingleCardDetails
+export default SingleCardDetails;
 
 const styles = StyleSheet.create({
   container: {
@@ -387,10 +459,35 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 10,
     marginBottom: 20,
+    height: 55,
   },
   addToCartText: {
     fontSize: 18,
     fontWeight: "bold",
     color: "white",
   },
-})
+  toastConfig: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  left: {
+    width: "80%",
+    gap: 3,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
+  },
+  subtitle: {
+    fontSize: 14,
+    color: "white",
+  },
+  right: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
+    marginLeft: 10,
+  },
+});
