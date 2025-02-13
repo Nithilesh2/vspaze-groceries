@@ -21,7 +21,7 @@ import FestivalItems from "../../../components/festivalItems/FestivalItems"
 import Toast from "react-native-toast-message"
 import { AppContext } from "../../../context/AppContext"
 import Voucher from "../../../components/Voucher/Voucher"
-import DiscountIcon from "../../../assets/icons/Discount";
+import DiscountIcon from "../../../assets/icons/Discount"
 const { width } = Dimensions.get("window")
 
 const Index = () => {
@@ -289,6 +289,6 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     fontSize: 16,
-    paddingVertical: 15,
+    paddingVertical: 12,
   },
 })

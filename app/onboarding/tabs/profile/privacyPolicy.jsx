@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 10,
-    color: "#541f9c",
+    color: "darkgreen",
   },
   intro: {
     fontSize: 14,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "bold",
-    color: "#541f9c",
+    color: "darkgreen",
     fontSize: 16,
   },
   subList: {

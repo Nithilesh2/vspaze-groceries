@@ -107,13 +107,21 @@ const Index = () => {
               <ArrowRightIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.button}
+              onPress={() => handleSend("AboutUs")}
+            >
               <AccountSetting01Icon />
               <Text style={styles.buttonText}>About Us</Text>
               <ArrowRightIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.button}
+              onPress={() => handleSend("TermsAndConditions")}
+            >
               <TACIcon />
               <Text style={styles.buttonText}>Terms & Conditions</Text>
               <ArrowRightIcon />
@@ -129,19 +137,31 @@ const Index = () => {
               <ArrowRightIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.button}
+              onPress={() => handleSend("RefundPolicy")}
+            >
               <PolicyIcon />
               <Text style={styles.buttonText}>Refund Policy</Text>
               <ArrowRightIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.button}
+              onPress={() => handleSend("CancellationPolicy")}
+            >
               <PrivacyPolicyIcon />
               <Text style={styles.buttonText}>Cancellation Policy</Text>
               <ArrowRightIcon />
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.9} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              style={styles.button}
+              onPress={() => handleSend("ShippingPolicy")}
+            >
               <DeliveryBox01Icon />
               <Text style={styles.buttonText}>Shipping Policy</Text>
               <ArrowRightIcon />

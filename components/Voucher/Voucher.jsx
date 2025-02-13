@@ -67,7 +67,6 @@ const VoucherCard = ({ item }) => (
           </Text>
         </View>
       </View>
-    </View>
     <View style={styles.semiCircleRight}>
       {Array.from({ length: 12 }).map((_, index) => (
         <SemiCircleCutout key={index} />
@@ -77,6 +76,7 @@ const VoucherCard = ({ item }) => (
       {Array.from({ length: 12 }).map((_, index) => (
         <SemiCircleCutout key={index} />
       ))}
+    </View>
     </View>
   </View>
 )
@@ -138,16 +138,17 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     paddingVertical: 10,
-    width: "100%",
+    width: width,
   },
   voucherWrapper: {
     alignItems: "center",
     width: width,
     alignContent: "center",
+    height: 150,
   },
   semiCircleRight: {
     position: "absolute",
-    right: 39,
+    right: 20,
     top: 0,
     transform: [{ translateY: -20 }],
     flexDirection: "row",
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   },
   semiCircleLeft: {
     position: "absolute",
-    right: 39,
+    right: 20,
     bottom: -38,
     transform: [{ translateY: -20 }],
     flexDirection: "row",
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     width: 325,
     alignItems: "center",
     borderRadius: 10,
-    height: 120,
+    height: 140,
     flexDirection: "row",
   },
   leftVoucherContainer: {
@@ -177,9 +178,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     width: 125,
-  },
-  topContainer: {
-    marginTop: 15,
+    justifyContent: 'center',
   },
   topText: {
     fontSize: 16,
@@ -208,9 +207,9 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     alignItems: "center",
     width: 200,
+    justifyContent: "center",
   },
   topVContainer: {
-    marginTop: 5,
     paddingVertical: 5,
   },
   topVText: {
@@ -219,21 +218,18 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
   },
-  middleVContainer: {
-    paddingVertical: 5,
-  },
   middleVText: {
     fontSize: 11,
     color: "black",
     fontWeight: "bold",
   },
   bottomVContainer: {
-    paddingVertical: 3,
+    paddingVertical: 5,
     borderWidth: 1.5,
     borderStyle: "dashed",
     paddingHorizontal: 15,
     borderRadius: 5,
-    marginVertical: 5,
+    marginBottom: 5,
   },
   bottomVText: {
     fontSize: 13,
